@@ -8,25 +8,30 @@ import gato2 from '../assets/gato4.jpg';
 import icon from '../assets/icon.png';
 import GatoContext from '../context/GatoContext';
 import { deleteGatoPorCodigoAPI } from '../services/gatosService';
-import Cats from './Cats';
 import DonateModal from './DonateModal';
 import AddCats from './AddCats';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
+import Carousel from './Carousel';
+import { getGatosAPI } from '../services/gatosService';
 import '../App.css';
-import g1 from '../assets/carrossel/1.jpg';
-import g2 from '../assets/carrossel/2.jpg';
-import g3 from '../assets/carrossel/3.jpg';
-import g4 from '../assets/carrossel/4.jpg';
-import g5 from '../assets/carrossel/5.jpg';
-import g6 from '../assets/carrossel/6.jpg';
-import g7 from '../assets/carrossel/7.jpg';
 
 const Home = () => {
 
     const { gatos, setGatos } = useContext(GatoContext);
     const [gatoAtualIndex, setGatoAtualIndex] = useState(0);
 
-    const imagensCarrossel = [g1, g2, g3, g4, g5, g6, g7];
+    const atualizarGatos = useCallback(async () => {
+        try {
+            const gatosDoBanco = await getGatosAPI();
+            setGatos(gatosDoBanco);
+        } catch (error) {
+            console.error("Erro ao buscar os gatos:", error);
+        }
+    }, [setGatos]);
+
+    useEffect(() => {
+        atualizarGatos(); 
+    }, [atualizarGatos]) 
 
     const removerGatoAtual = async () => {
         const gatoAtual = gatos[gatoAtualIndex];
@@ -35,16 +40,14 @@ const Home = () => {
 
         try {
             await deleteGatoPorCodigoAPI(gatoAtual.codigo);
-
             const gatosAtualizados = gatos.filter(gato => gato.codigo !== gatoAtual.codigo);
             setGatos(gatosAtualizados);
-
             setGatoAtualIndex(prevIndex => (prevIndex > 0 ? prevIndex - 1 : 0));
         } catch (error) {
             console.error("Erro ao remover o gato:", error);
         }
     };
-
+    
     return (
         <>
             <div id="home" className="na"></div>
@@ -67,42 +70,7 @@ const Home = () => {
                         Remover gato
                     </button>
                 </div>
-                <div className="carousel-container">
-                    <div id="carouselExampleIndicators" className="carousel slide">
-                        <div className="carousel-indicators">
-                            {gatos.map((_, index) => (
-                                <button
-                                    key={index}
-                                    type="button"
-                                    data-bs-target="#carouselExampleIndicators"
-                                    data-bs-slide-to={index}
-                                    className={index === 0 ? "active" : ""}
-                                    aria-current={index === 0 ? "true" : "false"}
-                                    aria-label={`Slide ${index + 1}`}
-                                ></button>
-                            ))}
-                        </div>
-                        <div className="carousel-inner">
-                            {gatos.map((gato, index) => (
-                                <div className={`carousel-item ${index === 0 ? "active" : ""}`} key={gato.codigo}>
-                                    <img src={imagensCarrossel[index % imagensCarrossel.length]} className="d-block w-100" alt={`Gato ${index + 1}`} />
-                                    <div className="carousel-caption d-none d-md-block">
-                                        <Cats gato={gato} />
-
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span className="visually-hidden">Previous</span>
-                        </button>
-                        <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span className="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
+                <Carousel gatos={gatos}/>
             </section>
             <section id="adotar" className="secao3">
                 <div className="adotar-container">

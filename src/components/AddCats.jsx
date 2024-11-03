@@ -28,7 +28,10 @@ const AddCats = () => {
 
         try {
             const gatoCadastrado = await cadastraGatoAPI(novoGato, 'POST');
-            setGatos([...gatos, gatoCadastrado]);
+            console.log(gatos)
+            console.log(gatoCadastrado.objeto)
+            setGatos([...gatos, gatoCadastrado.objeto]);
+            
             handleClose();
         } catch (error) {
             console.error("Erro ao cadastrar o gato: ", error);

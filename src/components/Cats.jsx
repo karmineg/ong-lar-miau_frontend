@@ -5,6 +5,7 @@ import { Modal, Button } from 'react-bootstrap';
 const Cats = ({ gato }) => {
     const [showInfo, setShowInfo] = useState(false);
     const [showPatronForm, setShowPatronForm] = useState(false);
+    console.log(gato)
 
     const handleShowInfo = () => {
         setShowInfo(true);
@@ -23,8 +24,6 @@ const Cats = ({ gato }) => {
             <Button onClick={handleShowInfo} className="btn btn-primary">
                 Exibir mais informações
             </Button>
-
-            {/* Modal for Gato Information */}
             <Modal show={showInfo} onHide={handleCloseInfo}>
                 <Modal.Header closeButton>
                     <Modal.Title>Informações do Gato</Modal.Title>

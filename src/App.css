@@ -103,7 +103,7 @@ section {
   display: flex;
   gap: 2rem;
   align-items: center;
-  max-width: 40%;
+  max-width: 50%;
 }
 
 .carousel-inner img {
