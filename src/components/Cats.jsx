@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import PatronForm from './PatronForm';
 import { Modal, Button } from 'react-bootstrap';
 
-const Cats = ({ gato }) => {
+const Cats = ({ gato, atualizarGatos }) => {
     const [showInfo, setShowInfo] = useState(false);
     const [showPatronForm, setShowPatronForm] = useState(false);
-    console.log(gato)
 
     const handleShowInfo = () => {
+        atualizarGatos();
         setShowInfo(true);
     };
 
@@ -17,6 +17,7 @@ const Cats = ({ gato }) => {
 
     const handlePatronClick = () => {
         setShowPatronForm(true);
+        handleCloseInfo();
     };
 
     return (

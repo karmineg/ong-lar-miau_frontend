@@ -10,28 +10,15 @@ import GatoContext from '../context/GatoContext';
 import { deleteGatoPorCodigoAPI } from '../services/gatosService';
 import DonateModal from './DonateModal';
 import AddCats from './AddCats';
-import React, { useContext, useEffect, useState, useCallback } from 'react';
+import ListPadrinhos from './ListPadrinhos';
+import React, { useContext, useState } from 'react';
 import Carousel from './Carousel';
-import { getGatosAPI } from '../services/gatosService';
 import '../App.css';
 
 const Home = () => {
 
     const { gatos, setGatos } = useContext(GatoContext);
     const [gatoAtualIndex, setGatoAtualIndex] = useState(0);
-
-    const atualizarGatos = useCallback(async () => {
-        try {
-            const gatosDoBanco = await getGatosAPI();
-            setGatos(gatosDoBanco);
-        } catch (error) {
-            console.error("Erro ao buscar os gatos:", error);
-        }
-    }, [setGatos]);
-
-    useEffect(() => {
-        atualizarGatos(); 
-    }, [atualizarGatos]) 
 
     const removerGatoAtual = async () => {
         const gatoAtual = gatos[gatoAtualIndex];
@@ -69,8 +56,9 @@ const Home = () => {
                     <button className="btnx" onClick={removerGatoAtual}>
                         Remover gato
                     </button>
+                    <ListPadrinhos />
                 </div>
-                <Carousel gatos={gatos}/>
+                <Carousel />
             </section>
             <section id="adotar" className="secao3">
                 <div className="adotar-container">

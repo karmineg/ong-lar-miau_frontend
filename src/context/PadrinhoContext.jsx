@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { getGatosAPI, cadastraPadrinhoAPI, atualizarGatoAPI } from '../services/gatosService';
+import { getGatosAPI, atualizarGatoAPI } from '../services/gatosService';
+import { cadastraPadrinhoAPI } from '../services/padrinhosService';
 
 const PadrinhoContext = createContext();
 
@@ -28,7 +29,7 @@ export const PadrinhoProvider = ({ children }) => {
     const atualizarGato = async (codigo, dadosAtualizados) => {
         try {
             const gatoAtualizado = await atualizarGatoAPI(codigo, dadosAtualizados);
-            return gatoAtualizado;
+            return gatoAtualizado.objeto;
         } catch (error) {
             console.error("Erro ao atualizar gato:", error);
             throw error;

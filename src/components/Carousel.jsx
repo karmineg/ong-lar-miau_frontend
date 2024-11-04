@@ -1,7 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cats from './Cats';
+import GatoContext from '../context/GatoContext';
+import { getGatosAPI } from '../services/gatosService';
 import '../App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import g1 from '../assets/carrossel/1.jpg';
 import g2 from '../assets/carrossel/2.jpg';
 import g3 from '../assets/carrossel/3.jpg';
@@ -10,9 +12,23 @@ import g5 from '../assets/carrossel/5.jpg';
 import g6 from '../assets/carrossel/6.jpg';
 import g7 from '../assets/carrossel/7.jpg';
 
-const Carousel = ({ gatos }) => {
+const Carousel = ( ) => {
+    const { gatos, setGatos } = useContext(GatoContext);
     const [gatosAtualizados, setGatosAtualizados] = useState(gatos);
     const imagensCarrossel = [g1, g2, g3, g4, g5, g6, g7];
+
+    const atualizarGatos = useCallback(async () => {
+        try {
+            const gatosDoBanco = await getGatosAPI();
+            setGatos(gatosDoBanco);
+        } catch (error) {
+            console.error("Erro ao buscar os gatos:", error);
+        }
+    }, [setGatos]);
+
+    useEffect(() => {
+        atualizarGatos(); 
+    }, [atualizarGatos]) 
 
     useEffect(() => {
         if (gatos && Array.isArray(gatos)) {
@@ -41,7 +57,7 @@ const Carousel = ({ gatos }) => {
                         <div className={`carousel-item ${index === 0 ? "active" : ""}`} key={gato.codigo}>
                             <img src={imagensCarrossel[index % imagensCarrossel.length]} className="d-block w-100" alt={`Gato ${index + 1}`} />
                             <div className="carousel-caption d-none d-md-block">
-                                <Cats gato={gato} />
+                                <Cats gato={gato} atualizarGatos={atualizarGatos}/>
                             </div>
                         </div>
                     ))}

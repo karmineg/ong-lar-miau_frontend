@@ -28,8 +28,6 @@ const AddCats = () => {
 
         try {
             const gatoCadastrado = await cadastraGatoAPI(novoGato, 'POST');
-            console.log(gatos)
-            console.log(gatoCadastrado.objeto)
             setGatos([...gatos, gatoCadastrado.objeto]);
             
             handleClose();

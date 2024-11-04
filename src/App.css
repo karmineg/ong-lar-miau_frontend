@@ -250,6 +250,7 @@ section {
   border: none;
   margin-top: 5%;
   margin-right: 50%;
+  margin-bottom: 5%;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
