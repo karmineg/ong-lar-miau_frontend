@@ -1,8 +1,11 @@
+import { getToken } from '../seguranca/Autenticacao';
+
 export const getGatosAPI = async () => {
     const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/gato`, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "authorization": getToken()
         }
     });
     
@@ -18,7 +21,8 @@ export const getGatoPorCodigoAPI = async (codigo) => {
     const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/gato/${codigo}`, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "authorization": getToken()
         }
     });
     
@@ -34,7 +38,8 @@ export const deleteGatoPorCodigoAPI = async (codigo) => {
     const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/gato/${codigo}`, {
         method: "DELETE",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "authorization": getToken()
         }
     });
     
@@ -50,7 +55,8 @@ export const cadastraGatoAPI = async (objeto, metodo) => {
     const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/gato`, {
         method: metodo,
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "authorization": getToken()
         },
         body: JSON.stringify(objeto)
     });
@@ -67,7 +73,8 @@ export const atualizarGatoAPI = async (codigo, dadosAtualizados) => {
     const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/gato/`, {
         method: "PUT",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "authorization": getToken()
         },
         body: JSON.stringify(dadosAtualizados)
     });
@@ -84,7 +91,8 @@ export const getGatosPorPadrinhoAPI = async (padrinhoId) => {
     const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/gato/padrinho/${padrinhoId}`, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "authorization": getToken()
         }
     });
     

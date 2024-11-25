@@ -1,8 +1,11 @@
+import { getToken } from '../seguranca/Autenticacao';
+
 export const getPadrinhosAPI = async () => {
     const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/padrinho`, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "authorization": getToken()
         }
     });
     
@@ -18,7 +21,8 @@ export const getPadrinhoPorCodigoAPI = async (codigo) => {
     const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/padrinho/${codigo}`, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "authorization": getToken()
         }
     });
     
@@ -34,7 +38,8 @@ export const deletePadrinhoPorCodigoAPI = async (codigo) => {
     const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/padrinho/${codigo}`, {
         method: "DELETE",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "authorization": getToken()
         }
     });
     
@@ -50,7 +55,8 @@ export const cadastraPadrinhoAPI = async (padrinhoData) => {
     const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/padrinho`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "authorization": getToken()
         },
         body: JSON.stringify(padrinhoData)
     });
@@ -67,7 +73,8 @@ export const atualizarPadrinhoAPI = async (codigo, dadosAtualizados) => {
     const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/padrinho/`, {
         method: "PUT",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "authorization": getToken()
         },
         body: JSON.stringify(dadosAtualizados)
     });

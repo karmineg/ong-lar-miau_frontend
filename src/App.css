@@ -327,6 +327,18 @@ section {
   line-height: 4rem;
 }
 
+.login-container {
+  color: black;
+  margin-top: 10vh;
+  margin-left: 15%;
+  line-height: 2rem;
+
+}
+
+.form-group {
+  margin-right: 10vh;
+}
+
 .navbar {
   background-color: white;
   padding: 5px 20px;

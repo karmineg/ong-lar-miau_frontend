@@ -6,34 +6,11 @@ import pata from '../assets/pata.png';
 import gato1 from '../assets/gato5.jpg';
 import gato2 from '../assets/gato4.jpg';
 import icon from '../assets/icon.png';
-import GatoContext from '../context/GatoContext';
-import { deleteGatoPorCodigoAPI } from '../services/gatosService';
 import DonateModal from './DonateModal';
-import AddCats from './AddCats';
-import ListPadrinhos from './ListPadrinhos';
-import React, { useContext, useState } from 'react';
-import Carousel from './Carousel';
+import React, { } from 'react';
 import '../App.css';
 
 const Home = () => {
-
-    const { gatos, setGatos } = useContext(GatoContext);
-    const [gatoAtualIndex, setGatoAtualIndex] = useState(0);
-
-    const removerGatoAtual = async () => {
-        const gatoAtual = gatos[gatoAtualIndex];
-
-        if (!gatoAtual) return;
-
-        try {
-            await deleteGatoPorCodigoAPI(gatoAtual.codigo);
-            const gatosAtualizados = gatos.filter(gato => gato.codigo !== gatoAtual.codigo);
-            setGatos(gatosAtualizados);
-            setGatoAtualIndex(prevIndex => (prevIndex > 0 ? prevIndex - 1 : 0));
-        } catch (error) {
-            console.error("Erro ao remover o gato:", error);
-        }
-    };
     
     return (
         <>
@@ -48,17 +25,6 @@ const Home = () => {
                 <div className="text2">
                     Adote ou apadrinhe um gato <img src={pata} alt="Pata" className="pata-icon" />
                 </div>
-            </section>
-            <section id="gatos" className="secao2">
-                <div className="text-carousel">
-                    | Conheça nossos gatos
-                    <AddCats />
-                    <button className="btnx" onClick={removerGatoAtual}>
-                        Remover gato
-                    </button>
-                    <ListPadrinhos />
-                </div>
-                <Carousel />
             </section>
             <section id="adotar" className="secao3">
                 <div className="adotar-container">

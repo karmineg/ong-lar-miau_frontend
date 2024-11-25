@@ -1,4 +1,5 @@
 import logo from '../assets/logo.png';
+import { NavLink } from 'react-router-dom';
 import '../App.css';
 
 const Navbar = () => {
@@ -36,6 +37,9 @@ const Navbar = () => {
                         </li>
                         <li className="nav-item">
                             <button className="nav-link" onClick={() => scrollToSection("contato")}>Contato</button>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/login">Login</NavLink>
                         </li>
                     </ul>
                 </div>
